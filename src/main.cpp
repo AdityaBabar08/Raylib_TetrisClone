@@ -1,6 +1,8 @@
 #include "raylib.h"
 #include <iostream>
 
+#include "Grid.h"
+
 #pragma region imgui
 #include "imgui.h"
 #include "rlImGui.h"
@@ -8,12 +10,18 @@
 #pragma endregion
 
 
+Color DARK_BLUE = { 44, 44, 127, 255 };
+
 
 int main(void)
 {
 
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-	InitWindow(800, 450, "raylib [core] example - basic window");
+	InitWindow(300, 600, "raylib [core] example - basic window");
+	SetTargetFPS(60);
+
+	Grid grid = Grid();
+	grid.PrintGrid();
 
 #pragma region imgui
 	rlImGuiSetup(true);
@@ -27,12 +35,12 @@ int main(void)
 	//imguiThemes::embraceTheDarkness();
 
 
-	ImGuiIO &io = ImGui::GetIO(); (void)io;
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
 	io.FontGlobalScale = 2;
 
-	ImGuiStyle &style = ImGui::GetStyle();
+	ImGuiStyle& style = ImGui::GetStyle();
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{
 		//style.WindowRounding = 0.0f;
@@ -47,32 +55,24 @@ int main(void)
 	while (!WindowShouldClose())
 	{
 		BeginDrawing();
-		ClearBackground(RAYWHITE);
+		ClearBackground(DARK_BLUE);
 
 
-	#pragma region imgui
+#pragma region imgui
 		rlImGuiBegin();
 
 		ImGui::PushStyleColor(ImGuiCol_WindowBg, {});
 		ImGui::PushStyleColor(ImGuiCol_DockingEmptyBg, {});
 		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 		ImGui::PopStyleColor(2);
-	#pragma endregion
+#pragma endregion
+		grid.DrawGrid();
 
 
-		ImGui::Begin("Test");
-
-		ImGui::Text("Hello");
-		ImGui::Button("Button");
-		ImGui::Button("Button2");
-
-		ImGui::End();
+		
 
 
-		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-
-
-	#pragma region imgui
+#pragma region imgui
 		rlImGuiEnd();
 
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -80,7 +80,7 @@ int main(void)
 			ImGui::UpdatePlatformWindows();
 			ImGui::RenderPlatformWindowsDefault();
 		}
-	#pragma endregion
+#pragma endregion
 
 		EndDrawing();
 	}
