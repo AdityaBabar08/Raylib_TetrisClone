@@ -1,6 +1,6 @@
 #include "raylib.h"
 #include <iostream>
-
+#include "blocks.cpp"
 #include "Grid.h"
 
 #pragma region imgui
@@ -22,6 +22,8 @@ int main(void)
 
 	Grid grid = Grid();
 	grid.PrintGrid();
+
+	TBlock block = TBlock();
 
 #pragma region imgui
 	rlImGuiSetup(true);
@@ -67,7 +69,7 @@ int main(void)
 		ImGui::PopStyleColor(2);
 #pragma endregion
 		grid.DrawGrid();
-
+		block.DrawBlock();
 
 		
 
