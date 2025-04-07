@@ -10,7 +10,18 @@
 
 
 Color DARK_BLUE = { 44, 44, 127, 255 };
+double lastUpdateTime = 0;
 
+bool EventTrigger(double interval)
+{
+	double currentTime = GetTime();
+	if (currentTime - lastUpdateTime >= interval)
+	{
+		lastUpdateTime = currentTime;
+		return true;
+	}
+	return false;
+}
 
 int main(void)
 {
@@ -54,6 +65,10 @@ int main(void)
 	{
 
 		game.HandleInput();
+		if (EventTrigger(0.2))
+		{
+			game.MoveBlockDown();
+		}
 
 		BeginDrawing();
 		ClearBackground(DARK_BLUE);
