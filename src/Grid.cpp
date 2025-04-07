@@ -1,4 +1,5 @@
 #include "Grid.h"
+#include "Grid.h"
 #include <iostream>
 
 
@@ -33,6 +34,15 @@ void Grid::PrintGrid()
 		}
 		std::cout << std::endl;
 	}
+}
+
+bool Grid::IsCellOutside(int row, int column)
+{
+	if (row >= 0 && row < rows && column >= 0 && column < columns)
+	{
+		return false;
+	}
+	return true;
 }
 
 std::vector<Color> Grid::GetCellColors()

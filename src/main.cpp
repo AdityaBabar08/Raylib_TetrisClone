@@ -1,7 +1,6 @@
 #include "raylib.h"
 #include <iostream>
-#include "blocks.cpp"
-#include "Grid.h"
+#include "Game.h"
 
 #pragma region imgui
 #include "imgui.h"
@@ -20,10 +19,7 @@ int main(void)
 	InitWindow(300, 600, "raylib [core] example - basic window");
 	SetTargetFPS(60);
 
-	Grid grid = Grid();
-	grid.PrintGrid();
-
-	TBlock block = TBlock();
+	Game game = Game();
 
 #pragma region imgui
 	rlImGuiSetup(true);
@@ -56,6 +52,9 @@ int main(void)
 
 	while (!WindowShouldClose())
 	{
+
+		game.HandleInput();
+
 		BeginDrawing();
 		ClearBackground(DARK_BLUE);
 
@@ -68,9 +67,8 @@ int main(void)
 		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 		ImGui::PopStyleColor(2);
 #pragma endregion
-		grid.DrawGrid();
-		block.DrawBlock();
-
+		
+		game.Draw();
 		
 
 
