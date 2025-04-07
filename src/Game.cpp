@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Game.h"
 #include "Game.h"
+#include "Game.h"
 #include <random>
 
 
@@ -49,6 +50,9 @@ void Game::HandleInput()
 	case KEY_DOWN:
 		MoveBlockDown();
 		break;
+	case KEY_UP:
+		Rotate();
+		break;
 	}
 }
 
@@ -76,6 +80,15 @@ void Game::MoveBlockDown()
 	if (IsBlockOutside())
 	{
 		currentBlock.Move(-1, 0);
+	}
+}
+
+void Game::Rotate()
+{
+	currentBlock.RotateBlock();
+	if (IsBlockOutside())
+	{
+		currentBlock.UndoRotateBlock();
 	}
 }
 

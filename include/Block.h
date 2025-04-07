@@ -14,6 +14,8 @@ public:
 	void DrawBlock();
 	void Move(int rows, int columns);
 	std::vector<Position> GetCellPositions();
+	void RotateBlock();
+	void UndoRotateBlock();
 private:
 	int cellSize;
 	int rotationState;

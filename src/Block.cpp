@@ -51,3 +51,21 @@ std::vector<Color> Block::GetCellColors()
 
 	return { darkGrey, green, red, orange, yellow, purple, cyan, blue };
 }
+
+void Block::RotateBlock()
+{
+	rotationState++;
+	if (rotationState == static_cast<int>(cells.size()))
+	{
+		rotationState = 0;
+	}
+}
+
+void Block::UndoRotateBlock()
+{
+	rotationState--;
+	if (rotationState == -1)
+	{
+		rotationState = cells.size() - 1;
+	}
+}
