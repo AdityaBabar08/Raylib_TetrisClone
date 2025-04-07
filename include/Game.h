@@ -20,4 +20,5 @@ private:
 	Block nextBlock;
 	bool IsBlockOutside();
 	void LockBlock();
+	bool BlockFits();
 };
