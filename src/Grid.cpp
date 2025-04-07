@@ -1,6 +1,10 @@
 #include "Grid.h"
 #include "Grid.h"
 #include "Grid.h"
+#include "Grid.h"
+#include "Grid.h"
+#include "Grid.h"
+#include "Grid.h"
 #include <iostream>
 
 
@@ -55,6 +59,25 @@ bool Grid::IsCellEmpty(int row, int column)
 	return false;
 }
 
+int Grid::ClearFullRows()
+{
+	int completed = 0;
+
+	for (int r = rows - 1; r >= 0; r--)
+	{
+		if (IsRowFull(r))
+		{
+			ClearRow(r);
+			completed++;
+		}
+		else if (completed > 0)
+		{
+			MoveRowDown(r, completed);
+		}
+	}
+	return completed;
+}
+
 std::vector<Color> Grid::GetCellColors()
 {
 	Color darkGrey = { 26, 31, 40, 255 };
@@ -68,6 +91,37 @@ std::vector<Color> Grid::GetCellColors()
 
 	return { darkGrey, green, red, orange, yellow, purple, cyan, blue };
 }
+
+bool Grid::IsRowFull(int row)
+{
+	for (int i = 0; i < columns; i++)
+	{
+		if (grid[row][i] == 0)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+void Grid::ClearRow(int row)
+{
+	for (int i = 0; i < columns; i++)
+	{
+		grid[row][i] = 0;
+	}
+}
+
+void Grid::MoveRowDown(int row, int numRows)
+{
+	for (int i = 0; i < columns; i++)
+	{
+		grid[row + numRows][i] = grid[row][i];
+		grid[row][i] = 0;
+	}
+}
+
+
 
 void Grid::DrawGrid()
 {
