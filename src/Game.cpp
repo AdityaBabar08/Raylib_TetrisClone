@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Game.h"
 #include "Game.h"
+#include "Game.h"
 #include <random>
 
 
@@ -80,6 +81,7 @@ void Game::MoveBlockDown()
 	if (IsBlockOutside())
 	{
 		currentBlock.Move(-1, 0);
+		LockBlock();
 	}
 }
 
@@ -103,4 +105,15 @@ bool Game::IsBlockOutside()
 		}
 	}
 	return false;
+}
+
+void Game::LockBlock()
+{
+	std::vector<Position> tiles = currentBlock.GetCellPositions();
+	for (Position item : tiles)
+	{
+		grid.grid[item.row][item.col] = currentBlock.id;
+	}
+	currentBlock = nextBlock;
+	nextBlock = GetRandomBlock();
 }
