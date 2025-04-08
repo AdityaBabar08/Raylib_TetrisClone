@@ -10,6 +10,7 @@
 
 
 Color DARK_BLUE = { 44, 44, 127, 255 };
+const Color LIGHT_BLUE = { 59, 85, 162, 255 };
 double lastUpdateTime = 0;
 
 bool EventTrigger(double interval)
@@ -27,8 +28,10 @@ int main(void)
 {
 
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-	InitWindow(300, 600, "raylib [core] example - basic window");
+	InitWindow(500, 620, "raylib [core] example - basic window");
 	SetTargetFPS(60);
+
+	Font gameFont = LoadFontEx(RESOURCES_PATH "Fonts/monogram.ttf", 64, 0, 0);
 
 	Game game = Game();
 
@@ -72,8 +75,14 @@ int main(void)
 
 		BeginDrawing();
 		ClearBackground(DARK_BLUE);
-
-
+		DrawTextEx(gameFont, "Score", { 365, 15 }, 38, 2, WHITE);
+		DrawTextEx(gameFont, "Next", { 370, 175 }, 38, 2, WHITE);
+		if (game.gameOver)
+		{
+			DrawTextEx(gameFont, "GAME OVER", { 320, 450 }, 38, 2, WHITE);
+		}
+		DrawRectangleRounded({ 320, 55, 170, 60 }, 0.3, 6, LIGHT_BLUE);
+		DrawRectangleRounded({ 320, 215, 170, 180 }, 0.3, 6, LIGHT_BLUE);
 #pragma region imgui
 		rlImGuiBegin();
 
