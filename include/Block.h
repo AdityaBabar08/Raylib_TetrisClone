@@ -11,7 +11,7 @@ public:
 	std::map<int, std::vector<Position>> cells;
 public:
 	Block();
-	void DrawBlock();
+	void DrawBlock(int offsetX, int offsetY);
 	void Move(int rows, int columns);
 	std::vector<Position> GetCellPositions();
 	void RotateBlock();

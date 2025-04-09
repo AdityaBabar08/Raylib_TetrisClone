@@ -38,7 +38,19 @@ Block Game::GetRandomBlock()
 void Game::Draw()
 {
 	grid.DrawGrid();
-	currentBlock.DrawBlock();
+	currentBlock.DrawBlock(10, 10);
+	switch (nextBlock.id)
+	{
+	case 3:
+		nextBlock.Draw(255, 290);
+		break;
+	case 4:
+		nextBlock.Draw(255, 280);
+		break;
+	default:
+		nextBlock.Draw(270, 270);
+		break;
+	}
 }
 
 void Game::HandleInput()
