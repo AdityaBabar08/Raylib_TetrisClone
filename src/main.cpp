@@ -82,6 +82,14 @@ int main(void)
 			DrawTextEx(gameFont, "GAME OVER", { 320, 450 }, 38, 2, WHITE);
 		}
 		DrawRectangleRounded({ 320, 55, 170, 60 }, 0.3, 6, LIGHT_BLUE);
+
+		char scoreText[10] = {};
+		sprintf(scoreText, "%d", game.score);
+		Vector2 textSize = MeasureTextEx(gameFont, scoreText, 38, 2);
+
+		DrawTextEx(gameFont, scoreText, { 320 + (170 - textSize.x) / 2, 65 }, 38, 2, WHITE);
+
+
 		DrawRectangleRounded({ 320, 215, 170, 180 }, 0.3, 6, LIGHT_BLUE);
 #pragma region imgui
 		rlImGuiBegin();
