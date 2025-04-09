@@ -1,14 +1,4 @@
 #include "Game.h"
-#include "Game.h"
-#include "Game.h"
-#include "Game.h"
-#include "Game.h"
-#include "Game.h"
-#include "Game.h"
-#include "Game.h"
-#include "Game.h"
-#include "Game.h"
-#include "Game.h"
 #include <random>
 
 
@@ -20,6 +10,20 @@ Game::Game()
 	nextBlock = GetRandomBlock();
 	gameOver = false;
 	score = 0;
+
+	InitAudioDevice();
+	music = LoadMusicStream(RESOURCES_PATH "Sounds/music.mp3");
+	PlayMusicStream(music);
+	rotateSound = LoadSound(RESOURCES_PATH "Sounds/rotate.mp3");
+	clearSound = LoadSound(RESOURCES_PATH "Sounds/clear.mp3");
+}
+
+Game::~Game()
+{
+	UnloadSound(rotateSound);
+	UnloadSound(clearSound);
+	UnloadMusicStream(music);
+	CloseAudioDevice();
 }
 
 Block Game::GetRandomBlock()
@@ -42,13 +46,13 @@ void Game::Draw()
 	switch (nextBlock.id)
 	{
 	case 3:
-		nextBlock.Draw(255, 290);
+		nextBlock.DrawBlock(255, 290);
 		break;
 	case 4:
-		nextBlock.Draw(255, 280);
+		nextBlock.DrawBlock(255, 280);
 		break;
 	default:
-		nextBlock.Draw(270, 270);
+		nextBlock.DrawBlock(270, 270);
 		break;
 	}
 }
@@ -126,6 +130,8 @@ void Game::Rotate()
 		{
 			currentBlock.UndoRotateBlock();
 		}
+		else
+			PlaySound(rotateSound);
 	}
 }
 
@@ -161,6 +167,7 @@ void Game::LockBlock()
 	if (rowsCleared > 0)
 	{
 		UpdateScore(rowsCleared, 0);
+		PlaySound(clearSound);
 	}
 }
 

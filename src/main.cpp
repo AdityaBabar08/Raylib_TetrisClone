@@ -66,7 +66,7 @@ int main(void)
 
 	while (!WindowShouldClose())
 	{
-
+		UpdateMusicStream(game.music);
 		game.HandleInput();
 		if (EventTrigger(0.2))
 		{
